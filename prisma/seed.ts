@@ -37,23 +37,23 @@ async function main() {
     await prisma.applicant.createMany({
       data: [
         {
-          firstName: 'Alice',
-          lastName: 'Smith',
-          email: 'alice@example.com',
-          track: 'FRONTEND_DEVELOPMENT',
+          firstName: 'Adam',
+          lastName: 'Wondale',
+          email: 'adambegizew@gmail.com',
+          track: 'BACKEND_DEVELOPMENT',
           status: 'PENDING',
         },
         {
-          firstName: 'Bob',
-          lastName: 'Jones',
-          email: 'bob@example.com',
+          firstName: 'Mahelet',
+          lastName: 'Abebe',
+          email: 'mahi@example.com',
           track: 'BACKEND_DEVELOPMENT',
           status: 'SHORTLISTED',
         },
         {
-          firstName: 'Charlie',
-          lastName: 'Brown',
-          email: 'charlie@example.com',
+          firstName: 'Chekole',
+          lastName: 'Tasew',
+          email: 'chekole@example.com',
           track: 'UI_UX_DESIGN',
           status: 'REJECTED',
         },
