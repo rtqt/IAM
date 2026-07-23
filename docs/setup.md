@@ -40,7 +40,9 @@ Initialize your database schema and run the seed script to populate initial data
 npx prisma migrate dev
 ```
 > [!TIP]
-> The database seed script will automatically run after the migration, creating a default admin user you can use to log in. Check `prisma/seed.ts` for the exact credentials.
+> The database seed script will automatically run after the migration, creating a default admin user you can use to log in.
+> email = admin@infnova.com and
+> password = password123
 
 ### 6. Run the Application
 Start the NestJS server in development mode:
