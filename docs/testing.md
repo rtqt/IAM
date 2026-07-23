@@ -1,14 +1,14 @@
 # Testing Strategy
 
-This codebase prioritizes testing the core business logic components to ensure stability as the platform grows. We utilize **Jest** as the primary testing framework, seamlessly integrated with NestJS.
+This codebase prioritizes testing the core business logic components to ensure stability as the platform grows. I utilize **Jest** as the primary testing framework, seamlessly integrated with NestJS.
 
 ## Unit Testing
 
 Unit tests isolate individual services by mocking external dependencies (such as the database via Prisma). 
 
 ### Covered Areas
-- **AuthService**: We verify that logins fail gracefully upon invalid passwords or missing users, and that valid credentials successfully generate and return a signed JWT access token.
-- **ApplicantsService**: We assert that conflicting applicants (e.g., duplicated emails) are caught by our business logic constraints before hitting the database, and that state transitions (e.g., changing status) are correctly restricted.
+- **AuthService**: I verify that logins fail gracefully upon invalid passwords or missing users, and that valid credentials successfully generate and return a signed JWT access token.
+- **ApplicantsService**: I assert that conflicting applicants (e.g., duplicated emails) are caught by our business logic constraints before hitting the database, and that state transitions (e.g., changing status) are correctly restricted.
 
 ### Running Tests
 To run all unit tests across the repository:
