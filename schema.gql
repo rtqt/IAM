@@ -1,0 +1,139 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type LoginResponse {
+  access_token: String!
+}
+
+type AdminType {
+  id: ID!
+  email: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ApplicantType {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String
+  track: InternshipTrack!
+  status: ApplicantStatus!
+  notes: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum InternshipTrack {
+  FRONTEND_DEVELOPMENT
+  BACKEND_DEVELOPMENT
+  MOBILE_DEVELOPMENT
+  UI_UX_DESIGN
+  DATA_ANALYTICS
+}
+
+enum ApplicantStatus {
+  PENDING
+  SHORTLISTED
+  ACCEPTED
+  REJECTED
+}
+
+type ApplicantMeta {
+  page: Int!
+  limit: Int!
+  totalItems: Int!
+  totalPages: Int!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type PaginatedApplicants {
+  data: [ApplicantType!]!
+  meta: ApplicantMeta!
+}
+
+type StatusCount {
+  status: String!
+  count: Int!
+}
+
+type TrackCount {
+  track: String!
+  count: Int!
+}
+
+type DashboardSummary {
+  totalActiveApplicants: Int!
+  byStatus: [StatusCount!]!
+  byTrack: [TrackCount!]!
+}
+
+type Query {
+  me: AdminType!
+  applicants(filter: FilterApplicantInput): PaginatedApplicants!
+  applicant(id: ID!): ApplicantType!
+  dashboardSummary: DashboardSummary!
+}
+
+input FilterApplicantInput {
+  page: Int = 1
+  limit: Int = 10
+  search: String
+  status: ApplicantStatus
+  track: InternshipTrack
+  sortBy: ApplicantSortField = CREATED_AT
+  sortOrder: SortOrder = DESC
+}
+
+enum ApplicantSortField {
+  CREATED_AT
+  FIRST_NAME
+  LAST_NAME
+  STATUS
+  TRACK
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+type Mutation {
+  login(input: LoginInput!): LoginResponse!
+  createApplicant(input: CreateApplicantInput!): ApplicantType!
+  updateApplicant(id: ID!, input: UpdateApplicantInput!): ApplicantType!
+  deleteApplicant(id: ID!): ApplicantType!
+  updateApplicantStatus(id: ID!, status: ApplicantStatus!): ApplicantType!
+  updateApplicantNotes(id: ID!, notes: String!): ApplicantType!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input CreateApplicantInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String
+  track: InternshipTrack!
+  notes: String
+}
+
+input UpdateApplicantInput {
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  track: InternshipTrack
+  notes: String
+}
