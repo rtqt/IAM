@@ -1,20 +1,20 @@
 # Setup Guide
 
-This document outlines how to set up the IAM (Internship Application Management) project locally for review and development.
+Here is how to set up the IAM project locally so you can review it.
 
 ## Prerequisites
 
 - **Node.js**: v18 or later.
-- **Package Manager**: pnpm (v8+) is highly recommended but npm works fine.
-- **Docker & Docker Compose**: Required for running the PostgreSQL database locally without manual installation.
+- **Package Manager**: I recommend pnpm (v8+), but npm will work.
+- **Docker & Docker Compose**: I used Docker to run PostgreSQL locally so you don't have to install it manually.
 
 ## Step-by-Step Setup
 
 ### 1. Clone the Repository
-Clone the project repository to your local machine and navigate into the project directory.
+Clone the project and navigate into the directory.
 
 ### 2. Install Dependencies
-This project uses `pnpm` to manage dependencies. Run the following command:
+Run this to install the packages:
 ```bash
 pnpm install
 ```
@@ -24,32 +24,32 @@ Copy the `.env.example` file to create your own `.env` file:
 ```bash
 cp .env.example .env
 ```
-Ensure your `.env` contains the required variables, particularly the `DATABASE_URL` and `JWT_SECRET`. By default, the `docker-compose.yml` is configured to match the default `.env.example` credentials.
+I configured the `docker-compose.yml` to match the default credentials in `.env.example`, so you shouldn't need to change `DATABASE_URL` or `JWT_SECRET` for local testing.
 
 ### 4. Start the Database
-Use Docker Compose to spin up the local PostgreSQL database:
+Spin up the PostgreSQL database:
 ```bash
 docker-compose up -d
 ```
 > [!NOTE]  
-> This will start a container named `iam-db` running PostgreSQL on port 5432.
+> This starts a container named `iam-db` running Postgres on port 5432.
 
 ### 5. Run Database Migrations
-Initialize your database schema and run the seed script to populate initial data (like the default Administrator account):
+Initialize the schema and seed the database:
 ```bash
 npx prisma migrate dev
 ```
 > [!TIP]
-> The database seed script will automatically run after the migration, creating a default admin user you can use to log in. Check `prisma/seed.ts` for the exact credentials.
+> The seed script runs automatically after the migration and creates a default admin user. Check `prisma/seed.ts` if you need the exact login credentials.
 
 ### 6. Run the Application
-Start the NestJS server in development mode:
+Start the NestJS server:
 ```bash
 pnpm run start:dev
 ```
-The application will be available at `http://localhost:3000`.
+The server will run on `http://localhost:3000`.
 
 ## Testing the API
-You can test the API using:
-1. **Swagger UI**: Navigate to `http://localhost:3000/api/docs` to see the complete REST API documentation and interact with the endpoints.
-2. **GraphQL Playground**: Navigate to `http://localhost:3000/graphql` to explore the GraphQL schema and run queries/mutations.
+I added a few ways to test the API directly from your browser:
+1. **Swagger UI**: Go to `http://localhost:3000/api/docs` to see the REST endpoints.
+2. **GraphQL Playground**: Go to `http://localhost:3000/graphql` to try out the GraphQL schema.

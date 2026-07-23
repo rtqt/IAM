@@ -1,26 +1,26 @@
 # Security and Validation
 
-Ensuring the application is secure and handles bad data gracefully is a top priority for this architecture.
+I prioritized making the API secure and capable of handling bad data.
 
 ## Authentication and Security
 
 ### JWT Strategy
-The application employs **JSON Web Tokens (JWT)** for stateless authentication. 
-- When an Administrator logs in, the `AuthService` verifies their credentials and issues a signed JWT containing their identity payload (`sub` mapping to the Admin's `id`).
-- All protected endpoints use the `@UseGuards(JwtAuthGuard)` decorator, ensuring only authorized tokens can access the API.
+I used **JSON Web Tokens (JWT)** for stateless authentication. 
+- When an Administrator logs in, the `AuthService` checks their credentials and issues a signed JWT.
+- I added the `@UseGuards(JwtAuthGuard)` decorator to protected endpoints, so you can only access them if you pass a valid token.
 
 ### Password Hashing
-We never store plaintext passwords. The application uses **bcrypt** to hash passwords before storing them in the database, protecting against database-level leaks.
+I didn't store plaintext passwords. I used **bcrypt** to hash passwords before they go into the database.
 
 ## Validation and Error Handling
 
 ### DTOs & Class-Validator
-Every incoming payload (via REST or GraphQL) is strictly validated against Data Transfer Objects (DTOs) heavily decorated with `class-validator` rules.
-- **Whitelist**: Extraneous fields sent in the request payload are automatically stripped (`whitelist: true`).
-- **Forbid Non-Whitelisted**: If unknown fields are sent, the request explicitly fails rather than ignoring them silently (`forbidNonWhitelisted: true`).
+I set up Data Transfer Objects (DTOs) with `class-validator` rules for every incoming request.
+- **Whitelist**: I configured it to strip out extra fields that aren't defined in the DTO (`whitelist: true`).
+- **Forbid Non-Whitelisted**: If someone sends an unknown field, the request fails with a 400 error instead of silently ignoring it (`forbidNonWhitelisted: true`).
 
 ### Global Exception Filter
-A custom `AllExceptionsFilter` catches all unhandled exceptions globally.
-- Standard HttpExceptions (like `UnauthorizedException` or `BadRequestException`) are mapped clearly to proper HTTP responses.
-- **Prisma Integration**: Database-level errors (such as Prisma's `P2002` Unique Constraint violations) are gracefully caught and mapped to `409 Conflict`, instead of causing a `500 Internal Server Error` crash.
-- This provides the frontend or API consumer with a predictable, consistent error response structure containing `statusCode`, `error`, `message`, `path`, and `timestamp`.
+I wrote a custom `AllExceptionsFilter` to catch unhandled errors globally.
+- Standard HttpExceptions map to the correct HTTP responses.
+- **Prisma Integration**: I caught database-level errors (like Prisma's `P2002` Unique Constraint violation) and mapped them to a `409 Conflict`. This stops the app from returning a generic `500 Internal Server Error` just because someone submitted a duplicate email.
+- The frontend gets a predictable error response with `statusCode`, `error`, `message`, `path`, and `timestamp`.

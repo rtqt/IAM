@@ -1,17 +1,17 @@
 # Testing Strategy
 
-This codebase prioritizes testing the core business logic components to ensure stability as the platform grows. We utilize **Jest** as the primary testing framework, seamlessly integrated with NestJS.
+I used **Jest** for testing since it integrates cleanly with NestJS. I focused on testing the core business logic components.
 
 ## Unit Testing
 
-Unit tests isolate individual services by mocking external dependencies (such as the database via Prisma). 
+I wrote unit tests for the services and mocked the Prisma database calls so they run in isolation.
 
 ### Covered Areas
-- **AuthService**: We verify that logins fail gracefully upon invalid passwords or missing users, and that valid credentials successfully generate and return a signed JWT access token.
-- **ApplicantsService**: We assert that conflicting applicants (e.g., duplicated emails) are caught by our business logic constraints before hitting the database, and that state transitions (e.g., changing status) are correctly restricted.
+- **AuthService**: I tested the login flow to verify it rejects bad passwords and missing users, and that valid credentials return a signed JWT.
+- **ApplicantsService**: I wrote tests to ensure the logic catches conflicting applicants (like duplicate emails) before hitting the database, and that the state transitions (like changing a status to ACCEPTED) are restricted correctly.
 
 ### Running Tests
-To run all unit tests across the repository:
+To run all unit tests:
 ```bash
 pnpm test
 ```
@@ -23,7 +23,7 @@ pnpm run test:watch
 
 ## E2E Testing
 
-End-to-End (E2E) testing ensures that the entire stack, from the HTTP layer down to the response format, functions correctly. E2E tests are located in the `/test` directory.
+End-to-End (E2E) testing hits the HTTP layer to check the full request and response cycle. You can find the E2E setup in the `/test` directory.
 
 To run the E2E test suite:
 ```bash

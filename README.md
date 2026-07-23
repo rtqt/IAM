@@ -4,17 +4,17 @@
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-IAM is a robust, production-ready backend service designed to manage internship applications seamlessly. Built natively with NestJS, Prisma, and PostgreSQL, it provides both REST and GraphQL interfaces for maximum integration flexibility.
+IAM is a backend service I built to manage internship applications. I wrote it in NestJS and used Prisma with PostgreSQL for the database. It exposes both a REST API and a GraphQL endpoint depending on what the frontend needs to query.
 
 ## Documentation 
 
-We have prepared comprehensive documentation for reviewers and developers in the `/docs` folder:
+I put together some docs in the `/docs` folder so you can see how things work under the hood:
 
-- 🚀 **[Setup Guide](./docs/setup.md)**: How to run the database via Docker and start the server.
-- 🏗 **[Architecture & Database Design](./docs/architecture.md)**: Explore the NestJS structure and PostgreSQL data schema.
-- 🔐 **[Security & Validation](./docs/security-and-validation.md)**: Details on our JWT strategy, Bcrypt hashing, and global error handling/DTO validation.
-- 🧪 **[Testing Strategy](./docs/testing.md)**: How to run our unit and e2e tests.
-- 📚 **[API Overview](./docs/api.md)**: How to access our interactive Swagger REST UI and GraphQL Playground.
+- [Setup Guide](./docs/setup.md): How to get the database running in Docker and start the server.
+- [Architecture & Database Design](./docs/architecture.md): The NestJS file structure and the Postgres schema.
+- [Security & Validation](./docs/security-and-validation.md): How I handled JWTs, bcrypt hashing, and request validation.
+- [Testing Strategy](./docs/testing.md): Running the unit and e2e tests.
+- [API Overview](./docs/api.md): Finding the Swagger UI and GraphQL Playground.
 
 ## Quickstart
 
@@ -34,12 +34,12 @@ npx prisma migrate dev
 # 5. Start the server
 pnpm run start:dev
 ```
-*For detailed setup instructions, please refer to the [Setup Guide](./docs/setup.md).*
+*If you run into issues, check the [Setup Guide](./docs/setup.md).*
 
 ## Reviewer Notes
 
-This project was built focusing deeply on **functional correctness** and **code readability**. You will find:
-- Strict modularity using NestJS features.
-- Clean database transactions and unique constraint handling with Prisma.
-- Comprehensive request validation via `class-validator` to ensure data integrity.
-- Both Swagger UI and GraphQL Playgrounds enabled out of the box for easy API exploration.
+I focused on functional correctness and readable code while building this. A few things to look out for:
+- I used standard NestJS modules to separate the domains.
+- Prisma handles the database transactions and unique constraints.
+- `class-validator` validates incoming requests before they hit the controllers.
+- Swagger UI and GraphQL Playground are both enabled if you want to test the endpoints directly.
